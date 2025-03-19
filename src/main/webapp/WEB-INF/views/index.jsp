@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body>
-
 <div class="index-header">
     <a href="${pageContext.request.contextPath}/index">
         <img src="${pageContext.request.contextPath}/image/header-logo.png" style="height: 35px"/>
