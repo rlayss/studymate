@@ -4,11 +4,13 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.codenova.studymate.model.Avatar;
+import org.codenova.studymate.model.LoginLog;
 import org.codenova.studymate.model.User;
 import org.codenova.studymate.repository.AvatarRepository;
 import org.codenova.studymate.repository.LoginLogRepository;
 import org.codenova.studymate.repository.UserRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,11 +59,12 @@ public class AuthController {
         return "auth/login";
     }
 
+
+    @Transactional
     @RequestMapping("/login/verify")
     public String loginVerifyHandle(@RequestParam("id") String id,
                                     @RequestParam("password") String password,
-                                    HttpSession session,
-                                    Model model) {
+                                    HttpSession session) {
         User found = userRepository.findById(id);
         if (found == null || !found.getPassword().equals(password)) {
 
@@ -69,7 +72,9 @@ public class AuthController {
         } else {
             userRepository.updateLoginCountByUserId(id);
             loginLogRepository.create(id);
-            session.setAttribute("user",found);
+
+            session.setAttribute("user", found);
+
             return "redirect:/index";
         }
     }
@@ -80,6 +85,7 @@ public class AuthController {
         session.invalidate();
         return "redirect:/index";
     }
+
 
 
 }

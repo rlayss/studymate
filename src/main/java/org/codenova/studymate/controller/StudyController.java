@@ -9,6 +9,7 @@ import org.codenova.studymate.repository.StudyGroupRepository;
 import org.codenova.studymate.repository.StudyMemberRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -23,13 +24,13 @@ public class StudyController {
     private StudyMemberRepository studyMemberRepository;
 
     @RequestMapping("/create")
-    public String createHandle() {
-        return "study/create";
-    }
+    public String createHandle() { return "study/create"; }
 
+    @Transactional
     @RequestMapping("/create/verify")
     public String createVerifyHandle(@ModelAttribute StudyGroup studyGroup,
                                      @SessionAttribute("user") User user) {
+
         String randomId = UUID.randomUUID().toString().substring(24);
 
         studyGroup.setId(randomId);
