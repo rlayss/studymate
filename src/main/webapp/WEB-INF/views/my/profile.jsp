@@ -28,7 +28,7 @@
       <li class="active">내정보 ></li>
       <li>내가 쓴 글</li>
       <li>가입신청 중인 그룹</li>
-      <li><a href="">로그아웃</a></li>
+      <li><a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a></li>
     </ul>
 
     <div class="content">
