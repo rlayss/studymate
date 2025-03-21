@@ -48,7 +48,7 @@ public class StudyController {
 
         studyGroupRepository.addMemberCountById(studyGroup.getId());
 
-        return "redirect:/study/"+randomId;
+        return "redirect:/study/" + randomId;
     }
 
     @RequestMapping("/search")
@@ -149,5 +149,31 @@ public class StudyController {
     }
 
 
+    // 탈퇴 요청 처리 핸들러
+    @RequestMapping("/{groupId}/leave")
+    public String leaveHandle(@PathVariable("groupId") String groupId, @SessionAttribute("user") User user, Model model) {
+        String userId = user.getId();
+        Map map = Map.of("groupId", groupId, "userId", userId);
+
+        StudyMember found = studyMemberRepository.findByUserIdAndGroupId(map);
+        studyMemberRepository.deleteById(found.getId());
+
+        studyGroupRepository.subtractMemberCountById(groupId);
+        return "redirect:/";
+    }
+
+    // 신청 철회 요청 핸들러
+    @RequestMapping("/{groupId}/cancel")
+    public String cancelHandle(@PathVariable("groupId") String groupId, @SessionAttribute("user") User user, Model model) {
+        String userId = user.getId();
+        Map map = Map.of("groupId", groupId, "userId", userId);
+
+        StudyMember found = studyMemberRepository.findByUserIdAndGroupId(map);
+        studyMemberRepository.deleteById(found.getId());
+
+        return "redirect:/study/" + groupId;
+    }
+
 }
+
 
