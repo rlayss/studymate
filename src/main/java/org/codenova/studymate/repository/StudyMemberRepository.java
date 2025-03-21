@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @AllArgsConstructor
@@ -28,4 +29,9 @@ public class StudyMemberRepository {
     public List<StudyMember>findByUserId(String userId) {
         return sqlSessionTemplate.selectList("studyMember.findByUserId", userId);
     }
+
+    public StudyMember findByUserIdAndGroupId(Map params) {
+        return sqlSessionTemplate.selectOne("studyMember.findByUserIdAndGroupId", params);
+    }
+
 }
