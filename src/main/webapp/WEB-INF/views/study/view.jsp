@@ -48,17 +48,17 @@ background-color: #afafaf; color:white" placeholder="스터디 검색" value="${
           </c:when>
           <c:when test="${status == 'PENDING'}">
             <p>
-              <button style="width: 100%; padding: 5px; font-size:1em;" disabled>승인 대기중</button>
+              <button style="width: 100%; padding: 5px; font-size:1em;" >승인 대기중</button>
             </p>
           </c:when>
           <c:when test="${status == 'MEMBER'}">
             <p>
-              <button style="width: 100%; padding: 5px; font-size:1em;" disabled>스터티 탈퇴하기</button>
+              <button style="width: 100%; padding: 5px; font-size:1em;" >스터티 탈퇴하기</button>
             </p>
           </c:when>
           <c:otherwise>
             <p>
-              <button style="width: 100%; padding: 5px; font-size:1em;" disabled>스터티 해산하기</button>
+              <button style="width: 100%; padding: 5px; font-size:1em;" >스터티 해산하기</button>
             </p>
           </c:otherwise>
         </c:choose>

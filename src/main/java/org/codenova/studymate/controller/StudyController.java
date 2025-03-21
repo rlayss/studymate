@@ -169,11 +169,51 @@ public class StudyController {
         Map map = Map.of("groupId", groupId, "userId", userId);
 
         StudyMember found = studyMemberRepository.findByUserIdAndGroupId(map);
-        studyMemberRepository.deleteById(found.getId());
+        if(found != null && found.getJoinedAt() == null && found.getRole().equals("멤버"))  {
+            studyMemberRepository.deleteById(found.getId());
+        }
+
+        return "redirect:/study/" + groupId;
+    }
+
+    @Transactional
+    @RequestMapping("/{groupId}/remove")
+    public String removeHandle(@PathVariable("groupId") String groupId, @SessionAttribute("user") User user) {
+        StudyGroup studyGroup = studyGroupRepository.findById(groupId);
+
+        if(studyGroup != null && studyGroup.getCreatorId().equals(user.getId())) {
+            studyMemberRepository.deleteByGroupId(groupId);
+            studyGroupRepository.deleteById(groupId);
+            return "redirect:/";
+        }else {
+            return "redirect:/study/" + groupId;
+        }
+    }
+
+    @RequestMapping("/{groupId}/approve")
+    public String approveHandle(@PathVariable("groupId") String groupId,
+                                @RequestParam("targetUserId") String targetUserId,
+                                @SessionAttribute("user") User user) {
+
+        StudyGroup studyGroup = studyGroupRepository.findById(groupId);
+
+
+        if(studyGroup != null && studyGroup.getCreatorId().equals(user.getId())) {
+            StudyMember found = studyMemberRepository.findByUserIdAndGroupId(
+                    Map.of("userId", targetUserId, "groupId", groupId)
+            );
+
+            if (found != null) {
+                studyMemberRepository.updateJoinedAtById(found.getId());
+                studyGroupRepository.addMemberCountById(groupId);
+            }
+        }
 
         return "redirect:/study/" + groupId;
     }
 
 }
+
+
 
 

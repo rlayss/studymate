@@ -18,4 +18,8 @@
     <select id="findById" parameterType="string" resultType="studyGroup">
         select * from study_groups where id = #{id}
     </select>
+
+    <delete id="deleteById" parameterType="string">
+        delete from study_groups where id = #{id}
+    </delete>
 </mapper>
