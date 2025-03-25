@@ -30,11 +30,6 @@ public class StudyController {
 
 
 
-    @ModelAttribute("user")
-    public UserWithAvatar addUser(@SessionAttribute("user") UserWithAvatar user) {
-        System.out.println("addUser...");
-        return user;
-    }
 
 
     @RequestMapping("/create")
@@ -137,7 +132,7 @@ public class StudyController {
                     .writerName(userRepository.findById(post.getWriterId()).getName())
                     .writerAvatar(avatarRepository.findById(userRepository.findById(post.getWriterId()).getAvatarId()).getImageUrl())
                     .time(prettyTime.format(post.getWroteAt()))
-                    .reactions(postRectionRepository.findByPostId(post.getId()))
+                    .reactions(postRectionRepository.countFeelingByPostId(post.getId()))
                     .build();
             postMetas.add(cvt);
         }
@@ -282,6 +277,11 @@ public class StudyController {
         return "redirect:/study/" + postReaction.getGroupId();
     }
 
+    @ModelAttribute("user")
+    public UserWithAvatar addUser(@SessionAttribute("user") UserWithAvatar user) {
+        System.out.println("addUser...");
+        return user;
+    }
 }
 
 

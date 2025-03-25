@@ -28,7 +28,7 @@ background-color: #afafaf; color:white" placeholder="스터디 검색" value="${
 <div style="padding : 20px 0px;background-color: #F5F6F8;">
   <div class="study-main wrap">
     <div style="display: flex; gap:20px">
-      <div style="width: 200px; background-color: white ; padding : 4px">
+      <div style="width: 200px; background-color: white ; padding : 12px">
         <h2>${group.name}</h2>
         <div style="font-size : 0.8em">
           멤버 <span>${group.memberCount}</span> •
@@ -111,6 +111,7 @@ background-color: #afafaf; color:white" placeholder="스터디 검색" value="${
                   <c:when test="${t.feeling == 'angry'}"><span>😡</span></c:when>
                   <c:otherwise><span>😐</span></c:otherwise>
                 </c:choose>
+                <span>${t.count}</span>
               </c:forEach>
             </div>
           </div>
@@ -121,4 +122,5 @@ background-color: #afafaf; color:white" placeholder="스터디 검색" value="${
 </div>
 </body>
 </html>
+
 

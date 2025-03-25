@@ -63,15 +63,14 @@ public class AuthController {
                                     @RequestParam("password") String password,
                                     HttpSession session) {
         UserWithAvatar found = userRepository.findWithAvatarById(id);
-        if (found == null || !found.getPassword().equals(password)) {
 
+        if (found == null || !found.getPassword().equals(password)) {
             return "auth/login/verify-failed";
         } else {
             userRepository.updateLoginCountByUserId(id);
             loginLogRepository.create(id);
 
             session.setAttribute("user", found);
-
             return "redirect:/index";
         }
     }
@@ -84,5 +83,7 @@ public class AuthController {
     }
 
 
+
 }
+
 

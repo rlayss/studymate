@@ -2,6 +2,7 @@ package org.codenova.studymate.repository;
 
 import lombok.AllArgsConstructor;
 import org.codenova.studymate.model.entity.StudyMember;
+import org.codenova.studymate.model.query.StudyMemberWithGroupDetail;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,6 @@ public class StudyMemberRepository {
         return sqlSessionTemplate.update("studyMember.updateJoinedAtById", id);
     }
 
-
     public List<StudyMember>findByUserId(String userId) {
         return sqlSessionTemplate.selectList("studyMember.findByUserId", userId);
     }
@@ -41,4 +41,10 @@ public class StudyMemberRepository {
     public int deleteByGroupId(String groupId) {
         return sqlSessionTemplate.delete("studyMember.deleteByGroupId", groupId);
     }
+
+
+    public List<StudyMemberWithGroupDetail> findWithGroupDetailByUserId(String userId) {
+        return sqlSessionTemplate.selectList("studyMember.findWithGroupDetailByUserId", userId);
+    }
 }
+

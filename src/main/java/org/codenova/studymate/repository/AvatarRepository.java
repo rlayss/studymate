@@ -20,6 +20,5 @@ public class AvatarRepository {
     public Avatar findById(int id) {
         return template.selectOne("avatar.findById", id);
     }
-
-
 }
+
